@@ -1,11 +1,11 @@
 
 # Configuration
-TARGET = project
+TARGET = AvoidRC
 DEVICE = atmega128
 F_CPU = 16000000
 
 OBJS = \
-    main.o \
+    AvoidRC.o \
 
 
 
@@ -17,9 +17,9 @@ OBJDUMP = $(PREFIX)avr-objdump
 
 
 # AVR compiler and linker flags
-CFLAGS += -Os -ffunction-sections -DAVR -I./include -mmcu=$(DEVICE) -std=c99
+CFLAGS += -Os -ffunction-sections -DAVR -I../../../../include -mmcu=$(DEVICE) -std=c99
 CFLAGS += -DF_CPU=$(F_CPU) -DVERSION="\"$(VERSION)\"" -D_NIBO_2_
-CLDFLAGS += -v -mmcu=$(DEVICE) -L./lib
+CLDFLAGS += -v -mmcu=$(DEVICE) -L../../../../lib
 
 # MATH lib
 MATH = -lm -Wl,-u,vfprintf -lprintf_flt
@@ -32,7 +32,7 @@ LIBS = -lnibo2
 # build intel hex files
 all: $(TARGET).hex
 
-main.o: main.c
+AvoidRC.o: AvoidRC.c
 
 %.o: %.c Makefile
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -57,8 +57,7 @@ lss: $(TARGET).lss
 
 
 avrdude: $(TARGET).hex
-	avrdude -c stk500v2 -P /dev/ttyACM0 -e -p atmega128 
-	avrdude -c stk500v2 -p m128 -P /dev/ttyACM0 -B 1 -U lfuse:w:0xff:m -U hfuse:w:0xc1:m -U efuse:w:0xff:m -U flash:w:$(TARGET).hex
+	avrdude -c stk500v2 -p m128 -B 1 -U lfuse:w:0xff:m -U hfuse:w:0xc1:m -U efuse:w:0xff:m -U flash:w:$(TARGET).hex
 
 clean:
 	rm -f *.d *.o *~ *.elf $(TARGET).hex $(TARGET).lss
