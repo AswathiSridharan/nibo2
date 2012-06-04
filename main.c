@@ -15,7 +15,7 @@
 #include "nibo/leds.h"
 #include "nibo/pwm.h"
 #include "nibo/bot.h"
-#include "proximitysensors.c"
+#include "proximitysensors.h"
 
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
