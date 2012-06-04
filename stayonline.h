@@ -1,3 +1,6 @@
+#ifndef STAYONLINE_H
+#define STAYONLINE_H
+
 #include "nibo/niboconfig.h"
 #include "nibo/iodefs.h"
 #include "nibo/delay.h"
@@ -49,3 +52,5 @@ void drive_and_stay_on_line(){
     
   }
 }
+
+#endif /*STAYONLINE_H*/
