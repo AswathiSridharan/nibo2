@@ -37,10 +37,7 @@ bool floor_right(){
 
 
 void drive_and_stay_on_line(){
-  uint8_t go = 0;
-  char mytext[300] = "";
   while (1) {
-    sei();
     _delay_ms(1);
     floor_update();
     if /*(!line_left() && !line_right()){
