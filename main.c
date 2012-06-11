@@ -73,7 +73,7 @@ int main(void) {
 
   stress = 0;
 
-  drive_and_stay_on_line();
+  //drive_and_stay_on_line();
   
   while (1) {
     delay(50);
@@ -121,11 +121,11 @@ int main(void) {
       continue;
     }
 
-    dist[4]  = copro_distance[4]/128;
+    dist[4] = copro_distance[4]/128;
     dist[3] = copro_distance[3]/128;
-    dist[2]  = copro_distance[2]/128;
+    dist[2] = copro_distance[2]/128;
     dist[1] = copro_distance[1]/128;
-    dist[0]  = copro_distance[0]/128;
+    dist[0] = copro_distance[0]/128;
 
     dist[4] = (dist[4]<250)? (dist[4]+5):255;
     dist[0] = (dist[0]<250)? (dist[0]+5):255;
