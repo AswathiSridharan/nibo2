@@ -1,3 +1,9 @@
+/**
+ * Name:  Pruefung P3d Nibo2
+ * Datum: 11.06.12
+ * Authors: Victor Ruch, Mike Gerber
+ **/
+
 #include "nibo/niboconfig.h"
 #include "nibo/delay.h"
 #include "nibo/display.h"
