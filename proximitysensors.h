@@ -1,5 +1,7 @@
-#include "nibo/iodefs.h"
+#ifndef PROXIMITYSENSORS_H
+#define PROXIMITYSENSORS_H
 
+#include "nibo/iodefs.h"
 
 void proximity_check(uint8_t *dist){
   // seeting leds
@@ -29,3 +31,5 @@ void proximity_check(uint8_t *dist){
   IO_LEDS_RED_PORT = ledred;
   IO_LEDS_GREEN_PORT = ledgreen;
 }
+
+#endif /*PROXIMITYSENSORS_H*/

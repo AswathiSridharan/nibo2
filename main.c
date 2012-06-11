@@ -15,7 +15,10 @@
 #include "nibo/leds.h"
 #include "nibo/pwm.h"
 #include "nibo/bot.h"
+
 #include "proximitysensors.h"
+#include "mylog.h"
+#include "stayonline.h"
 
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
@@ -83,6 +86,8 @@ int main(void) {
   copro_setSpeedParameters(15, 20, 10); // ki, kp, kd
 
   stress = 0;
+
+  drive_and_stay_on_line();
   
   while (1) {
     delay(50);

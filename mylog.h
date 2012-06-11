@@ -1,3 +1,5 @@
+#ifndef MYLOG_H
+#define MYLOG_H
 
 int log_line = 0;
 
@@ -10,3 +12,4 @@ void mylog(const char *text){
   gfx_print_text(text);
 }
 
+#endif /*MYLOG_H*/
