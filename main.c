@@ -1,9 +1,3 @@
-/*
-  Mit diesem Programm weicht der NIBO 2 Hindernissen aus, er fährt jedoch nur wenn er auf dem Boden 
-  steht. Hebt man ihn auf, drehen sich die Räder nicht mehr.
-
-*/
-
 #include "nibo/niboconfig.h"
 #include "nibo/delay.h"
 #include "nibo/display.h"
@@ -29,18 +23,10 @@
 #define HIBYTE(x)        (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
 
-
-/*
-  Hier werden die Zustände definiert, in denen sich der NIBO 2 befinden kann.
-*/
 int16_t tspeed_l = 0;
 int16_t tspeed_r = 0;
 
-uint8_t dist_l;
-uint8_t dist_fl;
-uint8_t dist_f;
-uint8_t dist_fr;
-uint8_t dist_r;
+uint8_t dist[5];
 
 uint8_t dist_max_ls; // max leftside
 uint8_t dist_max_fs; // max frontside
@@ -135,45 +121,38 @@ int main(void) {
       continue;
     }
 
-    dist_l  = copro_distance[4]/128;
-    dist_fl = copro_distance[3]/128;
-    dist_f  = copro_distance[2]/128;
-    dist_fr = copro_distance[1]/128;
-    dist_r  = copro_distance[0]/128;
+    dist[4]  = copro_distance[4]/128;
+    dist[3] = copro_distance[3]/128;
+    dist[2]  = copro_distance[2]/128;
+    dist[1] = copro_distance[1]/128;
+    dist[0]  = copro_distance[0]/128;
 
-    dist_l = (dist_l<250)? (dist_l+5):255;
-    dist_r = (dist_r<250)? (dist_r+5):255;
-    dist_f = (dist_f>5)? (dist_f-5):0;
+    dist[4] = (dist[4]<250)? (dist[4]+5):255;
+    dist[0] = (dist[0]<250)? (dist[0]+5):255;
+    dist[2] = (dist[2]>5)? (dist[2]-5):0;
 
 
-    dist_max_ls = (dist_l>dist_fl)?dist_l:dist_fl;
-    dist_max_rs = (dist_r>dist_fr)?dist_r:dist_fr;
-    dist_max_fs = (dist_fr>dist_fl)?dist_fr:dist_fl;
-    if (dist_f>dist_max_fs) dist_max_fs = dist_f;
+    dist_max_ls = (dist[4]>dist[3])?dist[4]:dist[3];
+    dist_max_rs = (dist[0]>dist[1])?dist[0]:dist[1];
+    dist_max_fs = (dist[1]>dist[3])?dist[1]:dist[3];
+    if (dist[2]>dist_max_fs) dist_max_fs = dist[2];
 
     gfx_move(25, 20);
-    print_hex(dist_r);
+    print_hex(dist[0]);
     gfx_print_char(' ');
-    print_hex(dist_fr);
+    print_hex(dist[1]);
     gfx_print_char(' ');
-    print_hex(dist_f);
+    print_hex(dist[2]);
     gfx_print_char(' ');
-    print_hex(dist_fl);
+    print_hex(dist[3]);
     gfx_print_char(' ');
-    print_hex(dist_l);
+    print_hex(dist[4]);
 
-    uint8_t dist[5];
-    dist[0] = dist_r;
-    dist[1] = dist_fr;
-    dist[2] = dist_f;
-    dist[3] = dist_fl;
-    dist[4] = dist_l;
-    
     proximity_check(dist);
     
-    uint16_t sum = dist_r + dist_fr
-                 + dist_f + dist_fl
-                 + dist_l;
+    uint16_t sum = dist[0] + dist[1]
+                 + dist[2] + dist[3]
+                 + dist[4];
     sum /= 5;
     
     uint8_t dmax = (sum<0xe0)?(sum+0x20):0xff;
