@@ -45,11 +45,11 @@ void drive_and_stay_on_line(){
       copro_setSpeed(-20, -20);
       _delay_ms(100);
     }else if*/ (floor_right() ) {
-      copro_setSpeed(20, 0);
+      copro_setSpeed(15, 0);
     } else if(floor_left() ) {
-      copro_setSpeed(0, 20);
+      copro_setSpeed(0, 15);
     }else{
-      copro_setSpeed(30, 30);
+      copro_setSpeed(15, 15);
     }
   }
 }
